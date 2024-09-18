@@ -1,5 +1,22 @@
+import { useDispatch } from "react-redux";
+import { incrementLike } from "../../features/post/postSlice";
+
 const PostDetails = ({ post }) => {
-  const { title, description, image, tags = [], isSaved, likes } = post || {};
+  const dispatch = useDispatch();
+  const {
+    id,
+    title,
+    description,
+    image,
+    tags = [],
+    isSaved,
+    likes,
+  } = post || {};
+
+  // Handle like button click
+  const handleLike = () => {
+    dispatch(incrementLike(id)); // Dispatch the incrementLike action with the post ID
+  };
 
   return (
     <main className="post">
@@ -22,11 +39,15 @@ const PostDetails = ({ post }) => {
           ))}
         </div>
         <div className="btn-group">
-          {/* Handle like on button click */}
-          <button className="like-btn" id="lws-singleLinks">
+          {/* Like Button */}
+          <button
+            className="like-btn"
+            id="lws-singleLinks"
+            onClick={handleLike}
+          >
             <i className="fa-regular fa-thumbs-up"></i> {likes || 0}
           </button>
-          {/* Handle save on button click */}
+          {/* Save Button */}
           <button
             className={`save-btn ${isSaved ? "active" : ""}`}
             id="lws-singleSavedBtn"
