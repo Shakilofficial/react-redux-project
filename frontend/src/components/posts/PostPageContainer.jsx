@@ -1,13 +1,13 @@
-import RelatedPosts from "../relatedPosts/RelatedPosts";
-import Post from "./Post";
+/* import RelatedPosts from "../relatedPosts/RelatedPosts";
+import PostDetails from "./PostDetails";
 
 const PostPageContainer = () => {
   return (
     <section className="post-page-container">
-      <Post />
+      <PostDetails />
       <RelatedPosts />
     </section>
   );
 };
 
-export default PostPageContainer;
+export default PostPageContainer; */

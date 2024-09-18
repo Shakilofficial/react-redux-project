@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getPost, updatePostLikes } from "./postAPI";
+import { getPost, updatePostLikes, updatePostSaveStatus } from "./postAPI";
 
 const initialState = {
   post: {},
@@ -21,6 +21,17 @@ export const incrementLike = createAsyncThunk(
     const post = getState().post.post;
     const updatedLikes = post.likes + 1;
     const updatedPost = await updatePostLikes(id, updatedLikes);
+    return updatedPost;
+  }
+);
+
+// Thunk to toggle the save status of a post
+export const toggleSavePost = createAsyncThunk(
+  "post/toggleSavePost",
+  async (id, { getState }) => {
+    const post = getState().post.post;
+    const updatedSaveStatus = !post.isSaved; // Toggle the current saved status
+    const updatedPost = await updatePostSaveStatus(id, updatedSaveStatus);
     return updatedPost;
   }
 );
@@ -48,6 +59,10 @@ const postSlice = createSlice({
       // Increment like
       .addCase(incrementLike.fulfilled, (state, action) => {
         state.post = action.payload; // Update the post with the new likes count
+      })
+      //Update save status
+      .addCase(toggleSavePost.fulfilled, (state, action) => {
+        state.post = action.payload; // Update the post with the new save status
       });
   },
 });

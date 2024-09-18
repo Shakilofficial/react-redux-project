@@ -10,3 +10,9 @@ export const updatePostLikes = async (id, likes) => {
   const response = await axios.patch(`/blogs/${id}`, { likes }); // Use PATCH for partial update
   return response.data;
 };
+
+// Update save status for a post by ID (use PATCH for partial update)
+export const updatePostSaveStatus = async (id, isSaved) => {
+  const response = await axios.patch(`/blogs/${id}`, { isSaved }); // Patch the save status
+  return response.data;
+};

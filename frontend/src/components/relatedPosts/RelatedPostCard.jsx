@@ -1,19 +1,37 @@
 import { Link } from "react-router-dom";
-import image from "../../assets/mern.webp";
-const RelatedPostCard = () => {
+
+const RelatedPostCard = ({ post }) => {
+  const { title, image, id, likes, isSaved, createdAt, tags } = post || {};
+
   return (
-    <div className="card">
-      <Link to="/post">
-        <img src={image} className="card-image" alt="Related Post" />
+    <div className="lws-card">
+      <Link to={`/post/${id}`}>
+        <img src={image} className="lws-card-image" alt="Post Title" />
       </Link>
       <div className="p-4">
-        <Link to="/post" className="text-lg post-title lws-RelatedPostTitle">
-          Top Github Alternatives
-        </Link>
-        <div className="mb-0 tags">
-          <span>#python,</span> <span>#tech,</span> <span>#git</span>
+        <div className="lws-card-header">
+          <p className="lws-publishedDate">{createdAt}</p>
+          <p className="lws-likeCount">
+            <i className="fa-regular fa-thumbs-up"></i>
+            {likes}
+          </p>
         </div>
-        <p>2023-05-01</p>
+        <Link to={`/post/${id}`} className="lws-postTitle">
+          {title}
+        </Link>
+        <div className="lws-tags">
+          {tags.map((tag, index) => (
+            <span key={index}>
+              #{tag}
+              {index < tags.length - 1 ? ", " : ""}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-2 mt-4">
+          <span className={`lws-badge ${isSaved ? "saved" : ""}`}>
+            {isSaved ? "Saved" : ""}
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@
         "nodejs",
         "react"
       ],
-      "likes": 45,
+      "likes": 55,
       "isSaved": true,
       "createdAt": "2020-07-15"
     },
@@ -24,7 +24,7 @@
         "nodejs",
         "react"
       ],
-      "likes": 17,
+      "likes": 18,
       "isSaved": false,
       "createdAt": "2022-07-15"
     },
@@ -37,7 +37,7 @@
         "html",
         "programming"
       ],
-      "likes": 22,
+      "likes": 23,
       "isSaved": true,
       "createdAt": "2021-07-15"
     },
@@ -52,7 +52,7 @@
         "testing",
         "programming"
       ],
-      "likes": 24,
+      "likes": 33,
       "isSaved": false,
       "createdAt": "2023-01-25"
     },
@@ -81,7 +81,7 @@
         "tailwindcss",
         "css"
       ],
-      "likes": 44,
+      "likes": 47,
       "isSaved": true,
       "createdAt": "2022-01-23"
     },

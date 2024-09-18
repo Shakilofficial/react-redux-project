@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { incrementLike } from "../../features/post/postSlice";
+import { incrementLike, toggleSavePost } from "../../features/post/postSlice";
 
 const PostDetails = ({ post }) => {
   const dispatch = useDispatch();
@@ -16,6 +16,11 @@ const PostDetails = ({ post }) => {
   // Handle like button click
   const handleLike = () => {
     dispatch(incrementLike(id)); // Dispatch the incrementLike action with the post ID
+  };
+
+  // Handle save button click
+  const handleSave = () => {
+    dispatch(toggleSavePost(id)); // Dispatch the toggleSavePost action with the post ID
   };
 
   return (
@@ -38,7 +43,7 @@ const PostDetails = ({ post }) => {
             </span>
           ))}
         </div>
-        <div className="btn-group">
+        <div className="mt-4 btn-group">
           {/* Like Button */}
           <button
             className="like-btn"
@@ -49,8 +54,9 @@ const PostDetails = ({ post }) => {
           </button>
           {/* Save Button */}
           <button
-            className={`save-btn ${isSaved ? "active" : ""}`}
+            className={`save-btn ${isSaved ? "active" : ""}`} // Apply active class if saved
             id="lws-singleSavedBtn"
+            onClick={handleSave} // Handle save button click
           >
             <i className="fa-regular fa-bookmark"></i>{" "}
             {isSaved ? "Saved" : "Save"}

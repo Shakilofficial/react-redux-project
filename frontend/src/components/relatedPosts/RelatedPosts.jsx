@@ -1,35 +1,36 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRelatedPosts } from "../../features/relatedPosts/relatedPostsSlice";
+import Loading from "../Loading";
 import RelatedPostCard from "./RelatedPostCard";
 
-const relatedPostsData = [
-  {
-    id: 1,
-    image: "./images/git.webp",
-    title: "Top Github Alternatives",
-    tags: ["#python", "#tech", "#git"],
-    date: "2010-03-27",
-  },
-  {
-    id: 2,
-    image: "./images/ai.jpg",
-    title: "The future of Artificial Intelligence",
-    tags: ["#python", "#tech", "#git"],
-    date: "2020-07-15",
-  },
-];
-
-const RelatedPosts = () => {
-  return (
-    <aside>
-      <h4 className="mb-4 text-xl font-medium" id="lws-relatedPosts">
-        Related Posts
-      </h4>
-      <div className="space-y-4 related-post-container">
-        {relatedPostsData.map((post) => (
-          <RelatedPostCard key={post.id} post={post} />
-        ))}
-      </div>
-    </aside>
+const RelatedPosts = ({ currentPostId, tags }) => {
+  const dispatch = useDispatch();
+  const { relatedPosts, isLoading, isError, error } = useSelector(
+    (state) => state.relatedPosts
   );
+
+  useEffect(() => {
+    dispatch(fetchRelatedPosts({ tags, id: currentPostId }));
+  }, [dispatch, tags, currentPostId]);
+
+  // decide what to render
+  let content = null;
+
+  if (isLoading) content = <Loading />;
+  if (!isLoading && isError) {
+    content = <div className="col-span-12">{error}</div>;
+  }
+  if (!isLoading && !isError && relatedPosts?.length === 0) {
+    content = <div className="col-span-12">No related Posts found!</div>;
+  }
+  if (!isLoading && !isError && relatedPosts?.length > 0) {
+    content = relatedPosts.map((post) => (
+      <RelatedPostCard key={post.id} post={post} />
+    ));
+  }
+
+  return <div className="space-y-4 related-post-container">{content}</div>;
 };
 
 export default RelatedPosts;
