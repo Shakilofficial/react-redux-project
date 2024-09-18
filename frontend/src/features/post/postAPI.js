@@ -5,4 +5,3 @@ export const getPost = async (id) => {
 
   return response.data;
 };
-
