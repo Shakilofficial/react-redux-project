@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPosts } from "./postsAPI";
 const initialState = {
   posts: [],
+  filter: "all",
   isLoading: false,
   isError: false,
   error: "",
@@ -16,6 +17,11 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 const postsSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {
+    setFilter: (state, action) => {
+      state.filter = action.payload; // Update filter state
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
@@ -35,4 +41,5 @@ const postsSlice = createSlice({
   },
 });
 
+export const { setFilter } = postsSlice.actions;
 export default postsSlice.reducer;
